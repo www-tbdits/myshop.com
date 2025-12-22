@@ -1,22 +1,27 @@
-let lastScrollTop = 0;
 const mainHeader = document.querySelector('.main-header');
 const subHeader = document.querySelector('.sub-header');
 
-window.addEventListener('scroll', () => {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+let lastScrollTop = 0;
 
-  if (scrollTop > lastScrollTop) {
-    // নিচে স্ক্রল করলে লুকাও
-    mainHeader.classList.add('hide');
-    subHeader.classList.add('hide');
+window.addEventListener("scroll", function () {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  
+  // Debugging এর জন্য লগ
+  console.log('scrollTop:', scrollTop, 'lastScrollTop:', lastScrollTop);
+
+  if (scrollTop > lastScrollTop && scrollTop > 50) {
+    console.log('Scrolling down - hide headers');
+    mainHeader.classList.add("hide");
+    subHeader.classList.add("hide");
   } else {
-    // উপরে স্ক্রল করলে দেখাও
-    mainHeader.classList.remove('hide');
-    subHeader.classList.remove('hide');
+    console.log('Scrolling up - show headers');
+    mainHeader.classList.remove("hide");
+    subHeader.classList.remove("hide");
   }
 
   lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
+
 
 
 // ========== LOCATION ==========
@@ -33,12 +38,98 @@ function applyLocation() {
   closeLocationPopup();
 }
 
-// ========== SEARCH ==========
-function doSearch() {
-  alert("Search: " + searchInput.value);
+// ==========   সার্চ ফাংশন SEARCH ==========
+// ১. প্রোডাক্ট দেখানোর ফাংশন (সহজ পদ্ধতিতে বাটন কানেক্ট)
+function displayProducts(productsList) {
+  const productGrid = document.getElementById('productGrid');
+  if (!productGrid) return;
+  
+  productGrid.innerHTML = ''; 
+
+  productsList.forEach(product => {
+    const div = document.createElement('div');
+    div.classList.add('product');
+    
+    // এখানে আমরা প্রোডাক্টের নাম দিয়ে addToCart ফাংশন কল করছি
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h4>${product.name}</h4>
+      <p>${product.currency}${parseFloat(product.price).toFixed(2)}</p>
+      <button class="btn" onclick="addToCartByName('${product.name}')">Add to Cart</button>
+    `;
+    productGrid.appendChild(div);
+  });
 }
 
+// ২. নাম দিয়ে কার্টে প্রোডাক্ট যোগ করার ফাংশন
+function addToCartByName(productName) {
+  // মেইন প্রোডাক্ট লিস্ট থেকে ওই নামওয়ালা প্রোডাক্টটি খুঁজে বের করা
+  const productsData = JSON.parse(localStorage.getItem('products')) || [];
+  const productToAdd = productsData.find(p => p.name === productName);
+
+  if (productToAdd) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(productToAdd);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    updateCartCount(); // আইকনে সংখ্যা আপডেট
+    alert(productName + " added to cart!");
+  }
+}
+
+// ৩. কার্ট আইকনে সংখ্যা আপডেট করার ফাংশন
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCountElement = document.getElementById('cartCount'); 
+  
+  if (cartCountElement) {
+    cartCountElement.innerText = cart.length;
+  }
+}
+
+// ৪. সার্চ ফাংশন
+function doSearch() {
+  const inputField = document.getElementById("searchInput");
+  const searchTerm = inputField.value.toLowerCase().trim();
+  const productsData = localStorage.getItem('products');
+
+  if (searchTerm === "") {
+    alert("Please type something to search!");
+    return;
+  }
+
+  if (productsData) {
+    const products = JSON.parse(productsData);
+    const filteredProducts = products.filter(product => 
+      product.name.toLowerCase().includes(searchTerm)
+    );
+
+    if (filteredProducts.length > 0) {
+      displayProducts(filteredProducts); 
+    } else {
+      alert("Sorry, no products were found with this name!");
+    }
+  }
+}
+
+// ৫. এন্টার বাটন এবং পেজ লোড সেটআপ
+document.getElementById("searchInput").addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); 
+    doSearch();
+  }
+});
+
+window.addEventListener('load', () => {
+  updateCartCount();
+  const productsData = localStorage.getItem('products');
+  if (productsData) {
+    displayProducts(JSON.parse(productsData));
+  }
+});
+
 // ========== LANGUAGE TRANSLATION (GLOBAL) ==========
+
 const langData = {
   en: {
     deliver: "Deliver to",
