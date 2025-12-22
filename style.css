@@ -1,459 +1,504 @@
+/* ========== RESET & GLOBAL STYLES ========== */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  padding-top: 120px; /* হেডারের উচ্চতা অনুযায়ী প্যাডিং */
-  background: #f3f3f3;
+    padding-top: 120px; /* হেডারের উচ্চতা অনুযায়ী প্যাডিং */
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 /* ========== MAIN HEADER ========== */
 .main-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #276749;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  z-index: 1000;
-  transition: transform 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #276749;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
 .logo a {
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  text-decoration: none;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .location {
-  display: flex;
-  gap: 6px;
-  cursor: pointer;
+    display: flex;
+    gap: 6px;
+    cursor: pointer;
 }
 
 .small {
-  font-size: 11px;
-  color: #ccc;
+    font-size: 11px;
+    color: #ccc;
 }
 
 .bold {
-  font-size: 14px;
-  font-weight: bold;
+    font-size: 14px;
+    font-weight: bold;
 }
 
+/* ========== SEARCH BAR ========== */
 .search-bar {
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 1;
 }
 
 .search-bar input {
-  flex: 1;
-  padding: 6px;
+    flex: 1;
+    padding: 6px;
 }
 
 .search-bar select {
-  padding: 6px;
+    padding: 6px;
 }
 
 .search-bar button {
-  background: white;
-  padding: 6px 6px;
-  border: 1px solid white;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 0;
-  height: 29px;
-  margin-top: 1px;
-  vertical-align: middle;
+    background: white;
+    padding: 6px 6px;
+    border: 1px solid white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 0;
+    height: 29px;
+    margin-top: 1px;
+    vertical-align: middle;
 }
 
 .search-bar button:hover {
-  background-color: white;
-  border-color: white;
+    background-color: white;
+    border-color: white;
 }
 
 /* ========== SUB HEADER ========== */
 .sub-header {
-  position: fixed;
-  top: 74px; /* main-header উচ্চতার নিচে */
-  left: 0;
-  width: 100%;
-  background: #1E4F39;
-  padding: 8px;
-  font-size: 14px;
-  transition: transform 0.3s ease;
-  z-index: 1000;
+    position: fixed;
+    top: 74px; /* main-header উচ্চতার নিচে */
+    left: 0;
+    width: 100%;
+    background: #1E4F39;
+    padding: 8px;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    z-index: 1000;
 }
 
 .sub-header a {
-  color: white;
-  margin-right: 15px;
-  text-decoration: none;
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
 }
 
 /* ===== HEADER SCROLL HIDE ===== */
-/* এই অংশটুকু আপনার style.css এ আপডেট করুন */
 .main-header.hide {
-  transform: translateY(-100%);
+    transform: translateY(-100%);
 }
 
 .sub-header.hide {
-  /* sub-header যেহেতু নিচে থাকে, তাই একে আরও বেশি উপরে পাঠাতে হবে */
-  transform: translateY(-335%); 
+    transform: translateY(-335%);
 }
 
-
-/* ========== PRODUCTS ========== */
+/* ========== PRODUCTS SECTION ========== */
 .products {
-  padding: 30px;
+    flex: 1; /* কন্টেন্ট কম থাকলেও ফুটারকে নিচে রাখবে */
+    padding: 30px;
 }
 
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 .product {
-  background: white;
-  padding: 15px;
-  text-align: center;
+    background: white;
+    padding: 15px;
+    text-align: center;
 }
 
 .product img {
-  width: 100%;
+    width: 100%;
 }
 
 .btn {
-  display: block;
-  background: #febd69;
-  padding: 8px;
-  margin-top: 10px;
-  text-decoration: none;
-  color: black;
+    display: block;
+    background: #febd69;
+    padding: 8px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
 }
 
-/* ========== MODAL ========== */
+/* ========== MODAL & POPUP ========== */
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease forwards;
 }
 
 .modal-box {
-  background: white;
-  padding: 20px;
-  width: 300px;
+    background: #fff;
+    width: 350px;
+    max-width: 90%;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: slideUp 0.3s ease forwards;
 }
 
-/* ====== LOCATION POPUP DESIGN ====== */
-/* Popup background */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease forwards;
-}
-
-/* Popup box */
-.modal-box {
-  background: #fff;
-  width: 350px;
-  max-width: 90%;
-  padding: 30px 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  animation: slideUp 0.3s ease forwards;
-}
-
-/* Title */
 .modal-box h3 {
-  font-size: 24px;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  font-weight: 700;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-/* Select dropdown */
 .modal-box select {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1.8px solid #ccc;
-  margin-bottom: 25px;
-  transition: border-color 0.3s ease;
-  outline: none;
-  cursor: pointer;
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1.8px solid #ccc;
+    margin-bottom: 25px;
+    transition: border-color 0.3s ease;
+    outline: none;
+    cursor: pointer;
 }
 
 .modal-box select:focus {
-  border-color: #27ae60;
-  box-shadow: 0 0 8px #27ae60aa;
+    border-color: #27ae60;
+    box-shadow: 0 0 8px #27ae60aa;
 }
 
-/* Buttons container */
 .modal-btns {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
 }
 
-/* Buttons */
 .modal-btns button {
-  flex: 1;
-  padding: 12px 0;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .modal-btns .done-btn {
-  background-color: #27ae60;
-  color: white;
+    background-color: #27ae60;
+    color: white;
 }
 
 .modal-btns .done-btn:hover {
-  background-color: #219150;
+    background-color: #219150;
 }
 
 .modal-btns .close-btn {
-  background-color: #ecf0f1;
-  color: #7f8c8d;
+    background-color: #ecf0f1;
+    color: #7f8c8d;
 }
 
 .modal-btns .close-btn:hover {
-  background-color: #d0d7dc;
+    background-color: #d0d7dc;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ========== FOOTER ========== */
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-/* মেইন কন্টেন্ট এরিয়া (প্রোডাক্ট সেকশন) */
-.products {
-  flex: 1; /* এটি কন্টেন্টকে পুরো স্ক্রিন জুড়ে রাখবে, ফলে ফুটার নিজে থেকেই নিচে চলে যাবে */
-  padding: 30px;
-}
-
-/* ফুটার স্টাইল */
-.footer {
-  background-color: #1E4F39;
-  color: white;
-  padding: 40px 30px;
-  width: 100%;
-  margin-top: auto; /* কন্টেন্ট কম থাকলেও ফুটারকে নিচে ঠেলে দেবে */
-  position: relative; /* fixed সরিয়ে relative করা হয়েছে */
-}
-/* Footer এর কন্টেন্ট গ্রিড */
-.footer-grid {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;       /* মোবাইলে নিচে নামবে */
-  gap: 20px;
-}
-
-/* প্রতিটি কলাম */
-.footer-grid > div {
-  flex: 1 1 200px;
-  min-width: 150px;
-}
-
-/* হেডার ও লিঙ্ক স্টাইল */
-.footer-grid h4 {
-  margin-bottom: 12px;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.footer-grid a {
-  display: block;
-  color: #ddd;
-  text-decoration: none;
-  margin-bottom: 8px;
-  font-size: 14px;
-  transition: color 0.3s ease;
-}
-
-.footer-grid a:hover {
-  color: #febd69; /* হোভার এ হালকা হলুদ */
-}
-
-/* Copyright টেক্সট */
-.copy {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
-  color: #bbb;
-}
-
-/* Responsive for small screens */
-
-@media (max-width: 600px) {
-  .footer-grid {
-    flex-direction: column;
+/* ========== AUTH MODAL STYLING ========== */
+.auth-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-  }
-
-  .footer-grid > div {
-    min-width: auto;
-  }
-
-}.auth-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+    z-index: 9999;
 }
 
 .auth-box {
-  background: #fff;
-  width: 360px;
-  padding: 25px;
-  border-radius: 8px;
-  font-family: Arial, sans-serif;
+    background: #fff;
+    width: 360px;
+    padding: 25px;
+    border-radius: 12px;
+    position: relative; /* ক্লোজ বাটন পজিশন করার জন্য */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
 }
 
-.auth-box h2 {
-  margin-bottom: 15px;
+/* ক্লোজ বাটন (X) এর ডিজাইন */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
 }
 
+.close-btn:hover {
+    color: #ff0000; /* মাউস নিলে লাল হবে */
+}
+
+/* ইনপুট ও বাটনের ফিনিশিং */
 .auth-box input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
 }
 
 .auth-box button {
-  width: 100%;
-  padding: 10px;
-  background: #f0c14b;
-  border: none;
-  cursor: pointer;
+    width: 100%;
+    padding: 12px;
+    background: #f0c14b;
+    border: 1px solid #a88734;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.switch {
-  font-size: 14px;
-  margin-top: 10px;
+.auth-box button:hover {
+    background: #ddb347;
 }
 
-.switch a {
-  color: #0066c0;
-  cursor: pointer;
+.note, .help {
+    font-size: 13px;
+    margin-top: 10px;
 }
 
-.close-btn {
-  float: right;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.note {
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-.help {
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-/* ========== Cart icone  ========== */
+/* ========== CART ICON ========== */
 .cart-icon {
-  background-color: transparent; /* ব্যাকগ্রাউন্ড থাকবে না */
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 25px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  position: relative; /* count এর জন্য position relative দিতে হবে */
-  user-select: none;
-  transition: background-color 0.3s ease;
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    user-select: none;
+    transition: background-color 0.3s ease;
 }
 
 .cart-icon:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* একটু হালকা হোভার ইফেক্ট */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Icon styling */
-.cart-icon svg,
-.cart-icon i {
-  width: 24px;
-  height: 24px;
-  color: white;
+.cart-icon svg, .cart-icon i {
+    width: 24px;
+    height: 24px;
+    color: white;
 }
 
-/* Count bubble */
 .cart-icon span {
-  position: absolute;  /* overlay করার জন্য absolute */
-  top: -4px;           /* icon এর উপরে */
-  right: -4px;         /* icon এর ডানদিকে */
-  background-color: red; /* লাল বৃত্ত */
-  color: white;
-  padding: 2px 6px;
-  border-radius: 50%;  /* গোলাকার */
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 1;
-  min-width: 18px;
-  text-align: center;
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
-  pointer-events: none; /* count এর উপর ক্লিক এড়াতে */
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+    background-color: #1E4F39;
+    color: white;
+    padding: 40px 30px;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-grid > div {
+    flex: 1 1 200px;
+    min-width: 150px;
+}
+
+.footer-grid h4 {
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.footer-grid a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    margin-bottom: 8px;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-grid a:hover {
+    color: #febd69;
+}
+
+.copy {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* ========== ANIMATIONS & RESPONSIVE ========== */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-grid > div {
+        min-width: auto;
+    }
+}
+
+/* ========== CUTE & COMPACT LOCATION BOX ========== */
+.cute-location-box {
+    background: #ffffff;
+    width: 280px; /* সাইজ ছোট করা হয়েছে */
+    max-width: 90vw; /* মোবাইলের জন্য রেসপন্সিভ */
+    padding: 20px;
+    border-radius: 20px;
+    position: fixed;  /* fixed করে পুরো পেজে ফিক্সড */
+    top: 50%;         /* ভেতরের বক্স vertically centered */
+    right: 0;         /* ডান পাশ থেকে পজিশন */
+    transform: translateY(-50%); /* ভারটিক্যাল সেন্টার */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;  /* অতিরিক্ত অংশ লুকাবে */
+    z-index: 10000;
 }
 
 
+.cute-header {
+    margin-bottom: 0px;
+}
+
+.pin-icon {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.cute-header h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.cute-location-box select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 12px;
+    border: 1.5px solid #eee;
+    background-color: #fcfcfc;
+    margin-bottom: 15px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cute-location-box select:focus {
+    border-color: #276749;
+}
+
+.cute-done-btn {
+    width: 100%;
+    background: #276749; /* আপনার থিম সবুজ কালার */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.cute-done-btn:hover {
+    background: #1e4f39;
+    transform: scale(1.02); /* হালকা বড় হবে হোভার করলে */
+}
+
+/* ক্লোজ বাটনটি ছোট এবং কিউট */
+.cute-location-box .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #bbb;
+    cursor: pointer;
+}
+
+.cute-location-box .close-btn:hover {
+    color: #ff5e5e;
+}
