@@ -268,62 +268,83 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function showOrderConfirmation() {
-    // যদি modal না থাকে, তাহলে HTML এ add করো
-    let existing = document.getElementById('orderConfirmModal');
-    if (existing) {
-      existing.remove();
-    }
+  // ১. আগের কোনো মোডাল থাকলে সরিয়ে ফেলা
+  let existing = document.getElementById('orderConfirmModal');
+  if (existing) existing.remove();
 
-    // ইউনিক order ID তৈরি (Timestamp থেকে)
-    const orderId = 'ORD-' + Date.now();
+  // ২. আইডি এবং পিন জেনারেট করা
+  const orderId = 'ORD-' + Date.now();
+  const deliveryPin = Math.floor(1000 + Math.random() * 9000);
+  
+  // ৩. হিসাব নিকাশ
+  const firstCurrency = cart.length > 0 ? (cart[0].currency || '$') : '$';
+  let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  // আপনি চাইলে এখানে ডেলিভারি চার্জ যোগ করতে পারেন, অথবা শুধু সাবটোটাল দেখাতে পারেন
+  const totalAmount = subtotal; 
 
-    // একটা নতুন div তৈরি করছি যা পপআপ হবে
-    const modal = document.createElement('div');
-    modal.id = 'orderConfirmModal';
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100vw';
-    modal.style.height = '100vh';
-    modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
-    modal.style.display = 'flex';
-    modal.style.justifyContent = 'center';
-    modal.style.alignItems = 'center';
-    modal.style.zIndex = '100000';
+  const modal = document.createElement('div');
+  modal.id = 'orderConfirmModal';
+  
+  // ব্যাকগ্রাউন্ড স্টাইল
+  Object.assign(modal.style, {
+    position: 'fixed', top: '0', left: '0', width: '100vw', height: '100vh',
+    backgroundColor: 'rgba(0,0,0,0.6)', display: 'flex', justifyContent: 'center',
+    alignItems: 'center', zIndex: '100000', fontFamily: 'sans-serif'
+  });
 
-    modal.innerHTML = `
-      <div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; width:90%; font-family: Arial, sans-serif; color:#333; text-align:center; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
-        <div style="font-size: 50px; color: green; margin-bottom: 10px;">✔️</div>
-        <h2 style="margin-bottom: 10px;">Congratulations!</h2>
-        <p style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">Order Placed Successfully!</p>
-        <p style="font-size: 14px; margin-bottom: 15px;">Your Order ID: <strong>${orderId}</strong></p>
-        <div style="text-align:left; max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
-          <h3 style="margin-bottom: 10px;">Order Summary:</h3>
-          ${cart.map(item => {
-            const currency = item.currency || '৳';
-            return `
-              <div style="display:flex; align-items:center; margin-bottom: 8px;">
-                <img src="${item.image || 'default-image.jpg'}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px; border-radius: 4px;"/>
-                <div>
-                  <div><strong>${item.name}</strong> × ${item.quantity}</div>
-                  <div>${currency}${(item.price * item.quantity).toFixed(2)}</div>
-                </div>
-              </div>
-            `;
-          }).join('')}
+  // ৪. আপনার দেওয়া ফরম্যাট অনুযায়ী ডিজাইন
+  modal.innerHTML = `
+    <div style="background:white; padding:30px; border-radius:15px; max-width:400px; width:90%; text-align:center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      <div style="font-size: 50px; margin-bottom: 10px;">✔️</div>
+      <h2 style="margin: 0; color: #333;">Congratulations!</h2>
+      <h3 style="margin: 5px 0 20px; color: #276749;">Order Placed Successfully!</h3>
+      
+      <p style="font-size: 14px; color: #555; margin-bottom: 15px;">
+        <strong>Your Order ID:</strong> ${orderId}
+      </p>
+
+      <div style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eee;">
+        <h4 style="margin: 0 0 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Order Summary:</h4>
+        
+        <div style="max-height: 120px; overflow-y: auto;">
+          ${cart.map(item => `
+            <div style="display:flex; justify-content:space-between; font-size: 14px; margin-bottom: 8px;">
+              <span>${item.name} × ${item.quantity}</span>
+              <span>${firstCurrency}${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+          `).join('')}
         </div>
-        <p style="font-size: 12px; color: #666;">Please take a screenshot of this order and show it to the delivery person.</p>
-        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Your delivery PIN: <strong>${generatePin()}</strong></p>
-        <button id="closeOrderConfirm" style="background:#276749; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-size: 16px;">Close</button>
+        
+        <div style="border-top: 2px solid #276749; margin-top: 10px; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
+          <span>Total:</span>
+          <span>${firstCurrency}${totalAmount.toFixed(2)}</span>
+        </div>
       </div>
-    `;
 
-    document.body.appendChild(modal);
+      <p style="font-size: 12px; color: #777; line-height: 1.4; margin-bottom: 10px;">
+        Please take a screenshot of this order and show it to the delivery person.
+      </p>
+      
+      <p style="font-size: 16px; font-weight: bold; color: #333; margin-bottom: 25px;">
+        Your delivery PIN: <span style="color: #d60000;">${deliveryPin}</span>
+      </p>
+      
+      <button id="closeOrderConfirm" style="background:#276749; color:white; border:none; padding:12px 40px; border-radius:8px; cursor:pointer; font-size: 16px; font-weight: bold; width: 100%;">Close</button>
+    </div>
+  `;
 
-    document.getElementById('closeOrderConfirm').addEventListener('click', () => {
-      modal.remove();
-    });
-  }
+  document.body.appendChild(modal);
+
+  // Close বাটন ইভেন্ট
+  document.getElementById('closeOrderConfirm').addEventListener('click', () => {
+    modal.remove();
+    // কার্ট ক্লিয়ার করা
+    cart = [];
+    localStorage.removeItem('cart');
+    if (typeof updateCartCount === "function") updateCartCount();
+    window.location.reload(); 
+  });
+}
 
   // PIN generate function (random 4 digit number)
   function generatePin() {
