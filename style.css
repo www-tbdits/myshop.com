@@ -2,17 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  padding-top: 120px;
+  padding-top: 120px; /* হেডারের উচ্চতা অনুযায়ী প্যাডিং */
   background: #f3f3f3;
 }
-/* ========== HEADER ========== */
+
+/* ========== MAIN HEADER ========== */
 .main-header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background: #276749;
   color: white;
@@ -21,7 +23,7 @@ body {
   gap: 15px;
   padding: 15px;
   z-index: 1000;
-  transition: transform 0.3s ease; /* ট্রানজিশন যোগ */
+  transition: transform 0.3s ease;
 }
 
 .logo a {
@@ -69,24 +71,26 @@ body {
   font-size: 14px;
   border-radius: 0;
   height: 29px;
-  margin-top: 1px; /* নিচে নামানো */
-  vertical-align: middle; /* বা adjust করে try করো 'bottom' */
+  margin-top: 1px;
+  vertical-align: middle;
 }
 
 .search-bar button:hover {
-  background-color: white; /* হোভার এ হালকা ব্যাকগ্রাউন্ড */
+  background-color: white;
   border-color: white;
 }
 
 /* ========== SUB HEADER ========== */
 .sub-header {
   position: fixed;
-  top: 64px;
+  top: 74px; /* main-header উচ্চতার নিচে */
+  left: 0;
   width: 100%;
   background: #1E4F39;
   padding: 8px;
-  font-size: 14px; /* এখানে দিলে ভেতরের সব টেক্সট ছোট হবে */
-  transition: transform 0.3s ease; /* ট্রানজিশন যোগ */
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
 .sub-header a {
@@ -95,10 +99,15 @@ body {
   text-decoration: none;
 }
 
-/* স্ক্রল করে লুকানোর জন্য ক্লাস */
-.main-header.hide,
-.sub-header.hide {
+/* ===== HEADER SCROLL HIDE ===== */
+/* এই অংশটুকু আপনার style.css এ আপডেট করুন */
+.main-header.hide {
   transform: translateY(-100%);
+}
+
+.sub-header.hide {
+  /* sub-header যেহেতু নিচে থাকে, তাই একে আরও বেশি উপরে পাঠাতে হবে */
+  transform: translateY(-335%); 
 }
 
 
@@ -257,20 +266,32 @@ body {
 
 
 /* ========== FOOTER ========== */
-/* Footer স্টাইল */
-.footer {
-  position: none;          /* ফিক্সড করে নিচে রাখবে */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #1E4F39;  /* গাঢ় সবুজ */
-  color: white;
-  padding: 20px 30px;
-  box-sizing: border-box;
-  z-index: 9999;
-  font-family: Arial, sans-serif;
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* মেইন কন্টেন্ট এরিয়া (প্রোডাক্ট সেকশন) */
+.products {
+  flex: 1; /* এটি কন্টেন্টকে পুরো স্ক্রিন জুড়ে রাখবে, ফলে ফুটার নিজে থেকেই নিচে চলে যাবে */
+  padding: 30px;
+}
+
+/* ফুটার স্টাইল */
+.footer {
+  background-color: #1E4F39;
+  color: white;
+  padding: 40px 30px;
+  width: 100%;
+  margin-top: auto; /* কন্টেন্ট কম থাকলেও ফুটারকে নিচে ঠেলে দেবে */
+  position: relative; /* fixed সরিয়ে relative করা হয়েছে */
+}
 /* Footer এর কন্টেন্ট গ্রিড */
 .footer-grid {
   display: flex;
@@ -314,6 +335,7 @@ body {
 }
 
 /* Responsive for small screens */
+
 @media (max-width: 600px) {
   .footer-grid {
     flex-direction: column;
@@ -324,6 +346,7 @@ body {
   .footer-grid > div {
     min-width: auto;
   }
+
 }.auth-modal {
   position: fixed;
   inset: 0;
