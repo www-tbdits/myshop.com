@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<style>
+body{
+  background:#276749;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial;
+}
+.box{
+  background:#fff;
+  padding:30px;
+  width:320px;
+  border-radius:10px;
+}
+input,button{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+}
+button{
+  background:#276749;
+  color:#fff;
+  border:none;
+}
+.error{color:red;text-align:center;}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2 align="center">Admin Login</h2>
+  <input type="text" id="user" placeholder="Username" onkeydown="enterLogin(event)">
+  <input type="password" id="pass" placeholder="Password" onkeydown="enterLogin(event)">
+  <button onclick="login()">Login</button>
+  <div class="error" id="err"></div>
+</div>
+
+<script>
+/* আগেই লগইন থাকলে login page দেখাবে না */
+if(sessionStorage.getItem("login") === "yes"){
+  window.location.replace("admin.html");
+}
+
+function enterLogin(e){
+  if(e.key === "Enter"){
+    login();
+  }
+}
+
+function login(){
+  const u = document.getElementById("user").value;
+  const p = document.getElementById("pass").value;
+
+  if(u==="admin" && p==="12345"){
+    sessionStorage.setItem("login","yes");
+    window.location.replace("admin.html"); // back disable
+  }else{
+    document.getElementById("err").innerText="Wrong username or password";
+  }
+}
+</script>
+
+</body>
+</html>

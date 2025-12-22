@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="admin-style.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <button id="btnHome" class="active">Home</button>
+      <button id="btnPreview">Preview</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Add Product Form -->
+    <section id="homeSection">
+      <h2>Add Product</h2>
+      <form id="productForm">
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" required />
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea>
+
+        <label for="price">Price:</label>
+        <div class="price-currency-wrapper">
+          <input type="number" id="price" required min="0" step="0.01" placeholder="0.00" />
+          <div class="currency-box" id="currencyBox">$</div>
+        </div>
+
+        <label for="currency">Currency:</label>
+        <select id="currency" required>
+          <option value="$">USD ($)</option>
+          <option value="৳">BDT (৳)</option>
+          <option value="₹">INR (₹)</option>
+          <option value="€">EUR (€)</option>
+        </select>
+
+<label for="image">Image URL or Upload:</label>
+<input type="url" id="image" placeholder="https://example.com/image.jpg" />
+<input type="file" id="imageUpload" accept="image/*" />
+<img id="imagePreview" src="" alt="Image Preview" style="max-width: 150px; margin-top: 10px; display: none;" />
+
+        <button type="submit">Add Product</button>
+      </form>
+    </section>
+
+    <!-- Preview Products -->
+    <section id="previewSection" style="display:none;">
+      <h2>Products Preview</h2>
+      <div id="productList"></div>
+    </section>
+  </main>
+
+  <script src="admin-script.js"></script>
+</body>
+</html>

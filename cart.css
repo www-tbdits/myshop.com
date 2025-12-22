@@ -1,0 +1,376 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #276749;
+  padding: 10px 20px;
+  color: white;
+  position: relative;
+  z-index: 1000;
+}
+
+.cart-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cart-icon span {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.cart-preview {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 350px;
+  max-height: 400px;
+  background: white;
+  border-radius: 0px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  padding: 15px;
+  z-index: 99999;
+  display: none;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.cart-preview h3 {
+  margin-top: 0;
+  font-size: 22px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-weight: 600;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cart-item-qty button {
+  background: #276749;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+.cart-item-qty button:hover {
+  background: #1e4d3a;
+}
+
+.cart-item-remove {
+  background: transparent;
+  border: none;
+  color: #ff3b3b;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cart-item-remove:hover {
+  color: #d60000;
+}
+
+.cart-actions {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.cart-actions button {
+  background-color: #276749;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-actions button:hover {
+  background-color: #1e4d3a;
+}
+
+
+.cart-preview button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.cart-preview button:first-of-type {
+  background-color: #276749;
+  color: white;
+}
+
+.cart-preview button:first-of-type:hover {
+  background-color: #1e4d3a;
+}
+
+.cart-preview button:last-of-type {
+  background-color: #ccc;
+}
+
+.cart-preview button:last-of-type:hover {
+  background-color: #bbb;
+}
+
+.product-card button {
+  background-color: #007BFF; /* প্রফেশনাল ব্লু কালার */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.product-card button:hover {
+  background-color: #0056b3; /* ডার্ক ব্লু হোভার এফেক্ট */
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.5);
+}
+
+.product-card button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+  <!-- ========== Billing Details/ Your Order  ========== --> 
+
+.modal-content {
+  background: #fff;
+  border-radius: 0px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: 630px; /* fixed height */
+  display: flex;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  padding: 20px 30px;
+  position: relative;
+  overflow: hidden; /* স্ক্রলবার দিচ্ছি না */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px; /* ছোট টেক্সট সাইজ */
+  color: #333;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #276749;
+}
+
+.checkout-container {
+  display: flex;
+  width: 100%;
+  gap: 30px;
+  height: 100%;
+}
+
+/* বাম পাশ (Billing Details) */
+.billing-details {
+  flex: 1;
+  overflow-y: auto; /* যদি অনেক ইনপুট হয় তবে স্ক্রল করাবে */
+  padding-right: 10px;
+  border-right: 1.5px solid #ddd;
+}
+
+.billing-details h2 {
+  font-size: 20px;
+  color: #276749;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #276749;
+  padding-bottom: 5px;
+}
+
+.billing-details label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.billing-details input,
+.billing-details textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.billing-details input:focus,
+.billing-details textarea:focus {
+  outline: none;
+  border-color: #276749;
+  box-shadow: 0 0 6px #276749aa;
+}
+
+/* ডান পাশ (Your Order) */
+
+.order-summary {
+  flex: 1;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden; /* স্ক্রল বার নাই */
+}
+
+.order-summary h2 {
+  font-size: 20px;
+  color: #276749;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #276749;
+  padding-bottom: 5px;
+}
+
+#orderItems {
+  flex-grow: 1;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.3;
+  border: 2px solid #ddd;
+  padding: 10px;
+  border-radius: 0px;
+  background: #f9f9f9;
+}
+
+.order-charges p {
+  margin: 6px 0;
+  font-weight: 700;
+  font-size: 15px;
+  color: #276749;
+}
+
+.order-summary label {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #444;
+  display: block;
+}
+
+.order-summary select,
+.order-summary input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1.5px solid #ccc;
+  font-size: 14px;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+
+.order-summary select:focus,
+.order-summary input[type="text"]:focus {
+  outline: none;
+  border-color: #276749;
+  box-shadow: 0 0 6px #276749aa;
+}
+
+#placeOrderBtn {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #276749;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+#placeOrderBtn:hover {
+  background-color: #1e4d3a;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 0;           /* Rounded corner বন্ধ */
+  max-width: 1400px;          /* আরও বড় */
+  width: 100%;
+  max-height: 90vh;           /* ভিউপোর্টের 90% উচ্চতা */
+  display: flex;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  padding: 20px 30px;
+  position: fixed;            /* fixed করলাম */
+  top: 50%;                   /* ভিউপোর্টের মাঝে vertically */
+  left: 50%;                  /* ভিউপোর্টের মাঝে horizontally */
+  transform: translate(-50%, -50%); /* সেন্টারিং */
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  color: #333;
+  z-index: 100001;            /* সবকিছুর উপরে */
+}
+
+.modal > div {
+  background: white;
+  padding: 20px;
+  border-radius: 0;           /* Rounded corner বন্ধ */
+  max-width: 900px;           /* বড় */
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+}

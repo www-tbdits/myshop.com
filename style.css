@@ -1,0 +1,436 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+body {
+  padding-top: 120px;
+  background: #f3f3f3;
+}
+/* ========== HEADER ========== */
+.main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #276749;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  z-index: 1000;
+  transition: transform 0.3s ease; /* ট্রানজিশন যোগ */
+}
+
+.logo a {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.location {
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.small {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.bold {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.search-bar {
+  display: flex;
+  flex: 1;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 6px;
+}
+
+.search-bar select {
+  padding: 6px;
+}
+
+.search-bar button {
+  background: white;
+  padding: 6px 6px;
+  border: 1px solid white;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 0;
+  height: 29px;
+  margin-top: 1px; /* নিচে নামানো */
+  vertical-align: middle; /* বা adjust করে try করো 'bottom' */
+}
+
+.search-bar button:hover {
+  background-color: white; /* হোভার এ হালকা ব্যাকগ্রাউন্ড */
+  border-color: white;
+}
+
+/* ========== SUB HEADER ========== */
+.sub-header {
+  position: fixed;
+  top: 64px;
+  width: 100%;
+  background: #1E4F39;
+  padding: 8px;
+  font-size: 14px; /* এখানে দিলে ভেতরের সব টেক্সট ছোট হবে */
+  transition: transform 0.3s ease; /* ট্রানজিশন যোগ */
+}
+
+.sub-header a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+/* স্ক্রল করে লুকানোর জন্য ক্লাস */
+.main-header.hide,
+.sub-header.hide {
+  transform: translateY(-100%);
+}
+
+
+/* ========== PRODUCTS ========== */
+.products {
+  padding: 30px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  background: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+}
+
+.btn {
+  display: block;
+  background: #febd69;
+  padding: 8px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+/* ========== MODAL ========== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: white;
+  padding: 20px;
+  width: 300px;
+}
+
+/* ====== LOCATION POPUP DESIGN ====== */
+/* Popup background */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Popup box */
+.modal-box {
+  background: #fff;
+  width: 350px;
+  max-width: 90%;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: slideUp 0.3s ease forwards;
+}
+
+/* Title */
+.modal-box h3 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Select dropdown */
+.modal-box select {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1.8px solid #ccc;
+  margin-bottom: 25px;
+  transition: border-color 0.3s ease;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-box select:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 8px #27ae60aa;
+}
+
+/* Buttons container */
+.modal-btns {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Buttons */
+.modal-btns button {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-btns .done-btn {
+  background-color: #27ae60;
+  color: white;
+}
+
+.modal-btns .done-btn:hover {
+  background-color: #219150;
+}
+
+.modal-btns .close-btn {
+  background-color: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.modal-btns .close-btn:hover {
+  background-color: #d0d7dc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ========== FOOTER ========== */
+/* Footer স্টাইল */
+.footer {
+  position: none;          /* ফিক্সড করে নিচে রাখবে */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1E4F39;  /* গাঢ় সবুজ */
+  color: white;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+/* Footer এর কন্টেন্ট গ্রিড */
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;       /* মোবাইলে নিচে নামবে */
+  gap: 20px;
+}
+
+/* প্রতিটি কলাম */
+.footer-grid > div {
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+/* হেডার ও লিঙ্ক স্টাইল */
+.footer-grid h4 {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.footer-grid a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-grid a:hover {
+  color: #febd69; /* হোভার এ হালকা হলুদ */
+}
+
+/* Copyright টেক্সট */
+.copy {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .footer-grid {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-grid > div {
+    min-width: auto;
+  }
+}.auth-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.auth-box {
+  background: #fff;
+  width: 360px;
+  padding: 25px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+.auth-box h2 {
+  margin-bottom: 15px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 10px;
+  background: #f0c14b;
+  border: none;
+  cursor: pointer;
+}
+
+.switch {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.switch a {
+  color: #0066c0;
+  cursor: pointer;
+}
+
+.close-btn {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.help {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* ========== Cart icone  ========== */
+.cart-icon {
+  background-color: transparent; /* ব্যাকগ্রাউন্ড থাকবে না */
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  position: relative; /* count এর জন্য position relative দিতে হবে */
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.cart-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* একটু হালকা হোভার ইফেক্ট */
+}
+
+/* Icon styling */
+.cart-icon svg,
+.cart-icon i {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+/* Count bubble */
+.cart-icon span {
+  position: absolute;  /* overlay করার জন্য absolute */
+  top: -4px;           /* icon এর উপরে */
+  right: -4px;         /* icon এর ডানদিকে */
+  background-color: red; /* লাল বৃত্ত */
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;  /* গোলাকার */
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1;
+  min-width: 18px;
+  text-align: center;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  pointer-events: none; /* count এর উপর ক্লিক এড়াতে */
+}
+
+
