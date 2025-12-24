@@ -1,159 +1,137 @@
-// admin-script.js
-
 let products = JSON.parse(localStorage.getItem('products')) || [];
+let editIndex = null;
 
-// DOM Elements
+// Selectors
+const productForm = document.getElementById('productForm');
 const btnHome = document.getElementById('btnHome');
 const btnPreview = document.getElementById('btnPreview');
-const homeSection = document.getElementById('homeSection');
-const previewSection = document.getElementById('previewSection');
-const productForm = document.getElementById('productForm');
-const productList = document.getElementById('productList');
-
-const currencySelect = document.getElementById('currency');
-const currencyBox = document.getElementById('currencyBox');
-
-let editIndex = null; // কোন প্রোডাক্ট এডিট হচ্ছে সেটার index
-
-// Initial render
-renderProducts();
-
-// Show Home / Preview sections
-btnHome.addEventListener('click', () => {
-  btnHome.classList.add('active');
-  btnPreview.classList.remove('active');
-  homeSection.style.display = 'block';
-  previewSection.style.display = 'none';
-  clearForm();
-});
-
-btnPreview.addEventListener('click', () => {
-  btnPreview.classList.add('active');
-  btnHome.classList.remove('active');
-  previewSection.style.display = 'block';
-  homeSection.style.display = 'none';
-  renderProducts();
-});
-
-// Update currency symbol on change
-currencySelect.addEventListener('change', () => {
-  currencyBox.innerText = currencySelect.value;
-});
-
-// Form submit handler (Add or Edit)
-productForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const description = document.getElementById('description').value.trim();
-  const price = document.getElementById('price').value.trim();
-  const currency = currencySelect.value;
-  const image = document.getElementById('image').value.trim();
-
-  if(!name || !description || !price || !image) {
-    alert('Please fill all fields');
-    return;
-  }
-
-  if(editIndex === null) {
-    // Add new product
-    products.push({ name, description, price, currency, image });
-  } else {
-    // Edit existing product
-    products[editIndex] = { name, description, price, currency, image };
-    editIndex = null;
-    productForm.querySelector('button[type="submit"]').innerText = 'Add Product';
-  }
-
-  localStorage.setItem('products', JSON.stringify(products));
-  alert('Product saved!');
-  productForm.reset();
-  currencyBox.innerText = '$';
-  btnPreview.click(); // Switch to preview
-});
-
-// Render products with edit and delete buttons
-function renderProducts() {
-  productList.innerHTML = '';
-
-  if(products.length === 0) {
-    productList.innerHTML = '<p>No products added yet.</p>';
-    return;
-  }
-
-  products.forEach((product, index) => {
-    const div = document.createElement('div');
-    div.classList.add('product-card');
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h4>${product.name}</h4>
-      <p>${product.description}</p>
-      <p class="price">${product.currency}${parseFloat(product.price).toFixed(2)}</p>
-      <button class="edit-btn" data-index="${index}">Edit</button>
-      <button class="delete-btn" data-index="${index}">Delete</button>
-    `;
-
-    productList.appendChild(div);
-  });
-
-  // Add event listeners for edit and delete buttons
-  document.querySelectorAll('.edit-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const i = e.target.dataset.index;
-      startEditProduct(i);
-    });
-  });
-
-  document.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const i = e.target.dataset.index;
-      deleteProduct(i);
-    });
-  });
-}
-
-function startEditProduct(index) {
-  const product = products[index];
-  document.getElementById('name').value = product.name;
-  document.getElementById('description').value = product.description;
-  document.getElementById('price').value = product.price;
-  currencySelect.value = product.currency;
-  currencyBox.innerText = product.currency;
-  document.getElementById('image').value = product.image;
-
-  editIndex = index;
-  btnHome.click(); // Switch to form view
-  productForm.querySelector('button[type="submit"]').innerText = 'Save Changes';
-}
-
-function deleteProduct(index) {
-  if(confirm('Are you sure you want to delete this product?')) {
-    products.splice(index, 1);
-    localStorage.setItem('products', JSON.stringify(products));
-    renderProducts();
-  }
-}
-
-function clearForm() {
-  productForm.reset();
-  currencyBox.innerText = '$';
-  editIndex = null;
-  productForm.querySelector('button[type="submit"]').innerText = 'Add Product';
-}
-
-const imageInput = document.getElementById('image');
-const imageUpload = document.getElementById('imageUpload');
+const logoutBtn = document.getElementById('btnLogout');
+const submitBtn = document.getElementById('submitBtn');
+const formTitle = document.getElementById('formTitle');
 const imagePreview = document.getElementById('imagePreview');
 
-imageUpload.addEventListener('change', function(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      imagePreview.src = e.target.result;  // লোকাল ডাটা URL
-      imagePreview.style.display = 'block';
-      imageInput.value = e.target.result;  // আপলোড করলে image input-এ সেট করে দাও
-    };
-    reader.readAsDataURL(file);
-  }
+// Navigation
+btnHome.addEventListener('click', () => switchSection('home'));
+btnPreview.addEventListener('click', () => switchSection('preview'));
+logoutBtn.addEventListener('click', () => {
+    if(confirm("Are you sure you want to logout?")) {
+        window.location.href = "login.html"; // অথবা আপনার লগইন পেজের নাম
+    }
 });
+
+function switchSection(section) {
+    if(section === 'home') {
+        document.getElementById('homeSection').style.display = 'block';
+        document.getElementById('previewSection').style.display = 'none';
+        btnHome.classList.add('active');
+        btnPreview.classList.remove('active');
+        if(editIndex === null) clearForm();
+    } else {
+        document.getElementById('homeSection').style.display = 'none';
+        document.getElementById('previewSection').style.display = 'block';
+        btnPreview.classList.add('active');
+        btnHome.classList.remove('active');
+        renderProducts();
+    }
+}
+
+// Handle Currency Change
+document.getElementById('currency').addEventListener('change', (e) => {
+    document.getElementById('currencyBox').innerText = e.target.value;
+});
+
+// Image Upload Preview
+document.getElementById('imageUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = 'block';
+            document.getElementById('image').value = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Form Submit (Add/Update)
+productForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const productData = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
+        price: document.getElementById('price').value,
+        currency: document.getElementById('currency').value,
+        image: document.getElementById('image').value
+    };
+
+    if(editIndex === null) {
+        products.push(productData);
+        alert("Product Added Successfully!");
+    } else {
+        products[editIndex] = productData;
+        editIndex = null;
+        alert("Product Updated Successfully!");
+    }
+
+    localStorage.setItem('products', JSON.stringify(products));
+    clearForm();
+    switchSection('preview');
+});
+
+function renderProducts() {
+    const list = document.getElementById('productList');
+    list.innerHTML = products.length ? '' : '<p>No products found.</p>';
+
+    products.forEach((p, i) => {
+        list.innerHTML += `
+            <div class="product-card">
+                <img src="${p.image}" onerror="this.src='https://via.placeholder.com/150'">
+                <h4>${p.name}</h4>
+                <p class="price-tag">${p.currency}${p.price}</p>
+                <div class="action-btns">
+                    <button class="edit-btn" onclick="startEdit(${i})">Edit</button>
+                    <button class="delete-btn" onclick="deleteProduct(${i})">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+window.startEdit = (index) => {
+    const p = products[index];
+    editIndex = index;
+    
+    document.getElementById('name').value = p.name;
+    document.getElementById('description').value = p.description;
+    document.getElementById('price').value = p.price;
+    document.getElementById('currency').value = p.currency;
+    document.getElementById('currencyBox').innerText = p.currency;
+    document.getElementById('image').value = p.image;
+    imagePreview.src = p.image;
+    imagePreview.style.display = 'block';
+
+    formTitle.innerText = "Edit Product";
+    submitBtn.innerText = "Update Product";
+    submitBtn.style.background = "var(--success)";
+    switchSection('home');
+};
+
+window.deleteProduct = (index) => {
+    if(confirm("Delete this product?")) {
+        products.splice(index, 1);
+        localStorage.setItem('products', JSON.stringify(products));
+        renderProducts();
+    }
+};
+
+function clearForm() {
+    productForm.reset();
+    editIndex = null;
+    formTitle.innerText = "Add New Product";
+    submitBtn.innerText = "Add Product";
+    submitBtn.style.background = "var(--primary)";
+    imagePreview.style.display = 'none';
+    document.getElementById('currencyBox').innerText = "$";
+}
