@@ -180,13 +180,16 @@
         
         <h2>Sign in</h2>
         
-        <div id="loginBox">
-            <input type="text" id="liEmail" placeholder="Email or mobile number">
-            <input type="password" id="liPassword" placeholder="Password">
-            <button type="button" onclick="loginUser()">Login</button>
-            <p class="switch">New here? <a href="#" onclick="showSignup()">Create account</a></p>
-        </div>
-
+<div id="loginBox">
+    <input type="text" id="liEmail" placeholder="Email or mobile number">
+    <input type="password" id="liPassword" placeholder="Password">
+    <button type="button" onclick="loginUser()">Login</button>
+    
+    <p class="switch">
+        New here? <a href="#" onclick="showSignup()">Create account</a>
+        <span class="separator">|</span> 
+        <a href="login.html" class="admin-link">Admin login</a> </p>
+</div>
         <div id="signupBox" style="display:none;">
             <input type="text" id="suName" placeholder="Your name">
             <input type="text" id="suEmail" placeholder="Email or mobile number">
@@ -195,7 +198,7 @@
             <p class="switch">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
         </div>
         
-        <p class="help">Need help? <a href="https://wa.me/8801XXXXXXXXX" target="_blank">WhatsApp</a></p>
+        <p class="help">Need help? <a href="https://wa.me/8801323056735" target="_blank">WhatsApp</a></p>
     </div>
 </div>
     <section class="products" id="products">
