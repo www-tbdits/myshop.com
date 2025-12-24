@@ -502,3 +502,35 @@ html {
 .cute-location-box .close-btn:hover {
     color: #ff5e5e;
 }
+
+/* ========== ADMIN LINK STYLING ========== */
+.switch {
+    font-size: 13px;
+    margin-top: 15px;
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.switch a {
+    text-decoration: none;
+    color: #0066c0; /* নীল রঙ */
+    font-weight: 500;
+}
+
+.switch a:hover {
+    text-decoration: underline;
+    color: #c45500; /* হোভার করলে হালকা কমলা */
+}
+
+.separator {
+    color: #ccc; /* মাঝখানের দাগের রঙ */
+    font-weight: normal;
+}
+
+.admin-link {
+    color: #276749 !important; /* অ্যাডমিন লিঙ্ককে আপনার থিম কালারে হাইলাইট করা হলো */
+    font-weight: bold !important;
+}
